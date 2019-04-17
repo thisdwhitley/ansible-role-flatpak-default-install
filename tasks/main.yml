@@ -2,6 +2,11 @@
 ## This is really a pretty stupid/simple role, but I'm making it a role in the
 ##  hopes that it can be reused...
 
+- name: ensure the flatpak package is installed
+  package:
+    name: flatpak
+    state: installed
+
 - name: enable the flatpak repositories
   become: true
   flatpak_remote:
