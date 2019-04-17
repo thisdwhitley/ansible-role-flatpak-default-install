@@ -1,0 +1,19 @@
+---
+## This is really a pretty stupid/simple role, but I'm making it a role in the
+##  hopes that it can be reused...
+
+# - name: debugging
+#   debug:
+#     msg: "here:  {{ (item | basename | splitext)[0] }}"
+#   with_items: "{{ flatpakrepo_urls }}"
+
+- name: enable the flatpak repositories
+  become: true
+  flatpak_remote:
+    name: "{{ (item | basename | splitext)[0] }}"
+    state: present
+    flatpakrepo_url: "{{ item }}"
+  with_items: "{{ flatpakrepo_urls }}"
+  when: 
+    - flatpakrepo_urls is defined
+    - flatpakrepo_urls != ""
